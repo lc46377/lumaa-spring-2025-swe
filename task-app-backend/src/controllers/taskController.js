@@ -36,8 +36,6 @@ const updateTask = async (req, res) => {
             return res.status(404).json({ message: 'Task not found or not authorized' });
         }
 
-        console.log('Exisitng', existingTask)
-        console.log('ACtual', title, description, is_complete)
         const updatedTask = await taskService.updateTask(
             id,
             req.user.userId,

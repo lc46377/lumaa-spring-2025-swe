@@ -19,7 +19,6 @@ const createTask = async (userId, title, description) => {
 };
 
 const updateTask = async (taskId, userId, title, description, is_complete) => {
-    console.log('Task', is_complete)
     const result = await db.query(
         `UPDATE tasks 
          SET title = COALESCE($1, title), 
