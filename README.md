@@ -84,24 +84,35 @@ http://localhost:5001
 |DELETE |	/api/tasks/:id |	Delete a task |
 
 🎨 Features
-✅ User Authentication (Login & Logout)
-✅ Password Hashing with Bcrypt
-✅ JWT-Based Authentication for Secure Routes
-✅ Task CRUD Operations (Create, Read, Update, Delete)
-✅ Mark Tasks as Complete
-✅ Responsive UI with Bootstrap
-✅ Protected Routes for Logged-in Users
+✅ User Authentication (Login & Logout)  
+✅ Password Hashing with Bcrypt  
+✅ JWT-Based Authentication for Secure Routes  
+✅ Task CRUD Operations (Create, Read, Update, Delete)  
+✅ Mark Tasks as Complete  
+✅ Responsive UI with Bootstrap  
+✅ Protected Routes for Logged-in Users  
 
 📌 Troubleshooting
 🔹 Issue: npm start fails
 Solution: Delete node_modules and reinstall dependencies:
+```sh
 rm -rf node_modules package-lock.json
 npm install
 npm start
+```
 
 🔹 Issue: Cannot connect to PostgreSQL
-Solution: Ensure PostgreSQL is running and your .env values are correct.
+Solution: Ensure PostgreSQL is running and your .env values are correct.  
 
 🔹 Issue: Tables are missing
-Solution: Run the migration script again:
+Solution: Run the migration script again:  
+```sh
 node migration.js
+```
+---
+
+Salary Expectations: 25$-28$ per hour
+
+---
+
+Demo Video Link: 
