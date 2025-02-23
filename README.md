@@ -23,20 +23,42 @@ Before running the project, ensure you have:
 
 ---
 
+## 🗄️ **2️⃣ Set Up PostgreSQL Database**
+### **🔹 Create a PostgreSQL Database**
+1. Open a **terminal** and login to PostgreSQL:
+   ```sh
+   psql -U postgres
+   ```
+2. Create database task_app:
+   ```sh
+   CREATE DATABASE task_app;
+   ```
+3. Exit postgres
+   ```sh   
+   \q
+   ```
+
+---
+
+## 🗄️ **3️⃣ Clone the repositry**
+
+```sh
+git clone https://github.com/YOUR_GITHUB_USERNAME/task-manager.git
+cd task-manager
+```
+
+---
+
 ## **🖥️ Frontend Setup**
 📂 Navigate to the `frontend` folder and follow these steps:
 
 ```sh
 cd frontend
 npm install  # Install dependencies
-npm start    # Start React frontend
+npm run start    # Start React frontend
 ```
 
 🔹 The frontend will start at: http://localhost:3000
-
-🔹 Configure API URL
-Create a .env file in the frontend directory:
-REACT_APP_API_BASE_URL=http://localhost:5001/api
 
 ---
 
@@ -67,7 +89,7 @@ node migration.js
 ```
 🔹 Start the Backend Server
 ```sh
-npm start
+npm run dev
 ```
 
 🔹 The backend will start at:

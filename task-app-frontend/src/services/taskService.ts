@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5001/api/tasks"; // Update with your backend URL
+const API_URL = "http://localhost:5001/api/tasks";
 
 export const getTasks = async (token: string) => {
     return axios.get(API_URL, {
