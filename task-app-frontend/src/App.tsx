@@ -4,11 +4,13 @@ import PrivateRoutes from "./routes/PrivateRoutes";
 import Register from "./views/register";
 import Login from "./views/login";
 import TaskDashboard from "./views/taskdashboard";
+import Navbar from "./components/navbar";
 
 function App() {
   return (
     <Router>
       <AuthProvider>
+        <Navbar />
         <Routes>
           <Route element={<PrivateRoutes />}>
             <Route path="/tasks" element={<TaskDashboard />} />
