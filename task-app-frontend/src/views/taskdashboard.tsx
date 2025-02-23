@@ -34,6 +34,9 @@ const TaskDashboard = () => {
             await addTask(token, newTask);
             setNewTask({ title: "", description: "" });
             fetchTasks();
+
+            setCompletionMessage(`${newTask.title} task added!`);
+            setTimeout(() => setCompletionMessage(""), 3000);
         } catch (error) {
             console.error("Error adding task", error);
         }
@@ -61,6 +64,8 @@ const TaskDashboard = () => {
         try {
             await deleteTask(token, taskId);
             fetchTasks();
+            setCompletionMessage(`Deleted Task`);
+            setTimeout(() => setCompletionMessage(""), 3000);
         } catch (error) {
             console.error("Error deleting task", error);
         }
@@ -71,12 +76,13 @@ const TaskDashboard = () => {
     };
 
     const handleSaveEdit = async () => {
-        if (!editingTask) return;
+        if (!editingTask || !editingTask.title.trim() || !editingTask.description.trim()) return;
 
         try {
             await updateTask(token, editingTask.id, {
                 title: editingTask.title,
                 description: editingTask.description,
+                is_complete: false,
             });
 
             setEditingTask(null);
@@ -90,7 +96,6 @@ const TaskDashboard = () => {
         <div className="container mt-5">
             <h2 className="mb-3">Task Dashboard</h2>
 
-            {/* Completion Message */}
             {completionMessage && <div className="alert alert-success">{completionMessage}</div>}
 
             {/* ADD TASK */}
@@ -117,7 +122,7 @@ const TaskDashboard = () => {
             {/* TASK LIST OR EMPTY MESSAGE */}
             {tasks.length === 0 ? (
                 <div className="text-center mt-4">
-                    <h5 className="text-muted">📭 No tasks available. Add a new task to get started!</h5>
+                    <h5 className="text-muted">No tasks available. Add a new task to get started!</h5>
                 </div>
             ) : (
                 <ul className="list-group">
@@ -135,8 +140,7 @@ const TaskDashboard = () => {
                                 </span>
                             </div>
                             <div>
-                                {/* ✅ Show Edit Button ONLY if Task is NOT Completed */}
-                                {!task.is_complete && (
+                                {!task.is_complete && task.id && (
                                     <button className="btn btn-warning btn-sm me-2" onClick={() => handleEditTask(task)}>
                                         Edit
                                     </button>
@@ -148,6 +152,31 @@ const TaskDashboard = () => {
                         </li>
                     ))}
                 </ul>
+            )}
+
+            {/* EDIT TASK FORM */}
+            {editingTask && (
+                <div className="mt-3 p-3 border rounded bg-light">
+                    <h4>Edit Task</h4>
+                    <input
+                        type="text"
+                        className="form-control mb-2"
+                        value={editingTask.title}
+                        onChange={(e) => setEditingTask({ ...editingTask, title: e.target.value })}
+                    />
+                    <input
+                        type="text"
+                        className="form-control mb-2"
+                        value={editingTask.description}
+                        onChange={(e) => setEditingTask({ ...editingTask, description: e.target.value })}
+                    />
+                    <button className="btn btn-success me-2" onClick={handleSaveEdit}>
+                        Save
+                    </button>
+                    <button className="btn btn-secondary" onClick={() => setEditingTask(null)}>
+                        Cancel
+                    </button>
+                </div>
             )}
         </div>
     );
