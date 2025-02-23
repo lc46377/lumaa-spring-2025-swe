@@ -30,6 +30,7 @@ Before running the project, ensure you have:
 cd frontend
 npm install  # Install dependencies
 npm start    # Start React frontend
+```
 
 🔹 The frontend will start at: http://localhost:3000
 
@@ -41,11 +42,15 @@ REACT_APP_API_BASE_URL=http://localhost:5001/api
 
 ## **🖥️ Backend Setup**
 📂 Navigate to the `backend` folder and follow these steps:
+
+```sh
 cd backend
 npm install
+```
 
 🔹 Set Up Environment Variables
 Create a .env file inside the backend folder:
+```.env
 PORT=5001
 DB_HOST=localhost
 DB_USER=postgres
@@ -53,26 +58,30 @@ DB_PASSWORD=password
 DB_NAME=task-app
 DB_PORT=5432
 JWT_SECRET=your_secret_key_here
-
+```
 
 🔹 Run Database Migration
 Ensure PostgreSQL is running, then create tables:
+```sh
 node migration.js
-
+```
 🔹 Start the Backend Server
+```sh
 npm start
+```
 
 🔹 The backend will start at:
 http://localhost:5001
 
 📌 API Endpoints
-Method	Endpoint	Description
-POST	/api/auth/register	Register a new user
-POST	/api/auth/login	Authenticate user and return JWT
-GET	/api/tasks	Get all tasks for the logged-in user
-POST	/api/tasks	Create a new task
-PUT	/api/tasks/:id	Update task (title, description, completion)
-DELETE	/api/tasks/:id	Delete a task
+|Method |	Endpoint |	Description |
+|-------|----------|--------------|
+|POST	| /api/auth/register |	Register a new user |
+|POST	| /api/auth/login |	Authenticate user and return JWT |
+|GET | /api/tasks |	Get all tasks for the logged-in user |
+|POST |	/api/tasks |	Create a new task |
+|PUT |	/api/tasks/:id |	Update task (title, description, completion) |
+|DELETE |	/api/tasks/:id |	Delete a task |
 
 🎨 Features
 ✅ User Authentication (Login & Logout)
