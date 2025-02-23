@@ -23,7 +23,7 @@ Before running the project, ensure you have:
 
 ---
 
-## 🗄️ **2️⃣ Set Up PostgreSQL Database**
+### **2️⃣ Set Up PostgreSQL Database**
 ### **🔹 Create a PostgreSQL Database**
 1. Open a **terminal** and login to PostgreSQL:
    ```sh
@@ -40,7 +40,7 @@ Before running the project, ensure you have:
 
 ---
 
-## 🗄️ **3️⃣ Clone the repositry**
+### **3️⃣ Clone the repositry**
 
 ```sh
 git clone https://github.com/YOUR_GITHUB_USERNAME/task-manager.git
