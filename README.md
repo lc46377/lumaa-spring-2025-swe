@@ -83,7 +83,7 @@ http://localhost:5001
 |PUT |	/api/tasks/:id |	Update task (title, description, completion) |
 |DELETE |	/api/tasks/:id |	Delete a task |
 
-🎨 Features
+🎨 Features  
 ✅ User Authentication (Login & Logout)  
 ✅ Password Hashing with Bcrypt  
 ✅ JWT-Based Authentication for Secure Routes  
@@ -92,7 +92,7 @@ http://localhost:5001
 ✅ Responsive UI with Bootstrap  
 ✅ Protected Routes for Logged-in Users  
 
-📌 Troubleshooting
+📌 Troubleshooting  
 🔹 Issue: npm start fails
 Solution: Delete node_modules and reinstall dependencies:
 ```sh
@@ -115,4 +115,4 @@ Salary Expectations: 25$-28$ per hour
 
 ---
 
-Demo Video Link: 
+Demo Video Link: https://youtu.be/RUzvl_qQI_s  
