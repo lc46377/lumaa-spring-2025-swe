@@ -1,7 +1,8 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/authContext";
-import Login from "./views/login";
+import PrivateRoutes from "./routes/PrivateRoutes";
 import Register from "./views/register";
+import Login from "./views/login";
 import TaskDashboard from "./views/taskdashboard";
 
 function App() {
@@ -9,7 +10,9 @@ function App() {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/tasks" element={<TaskDashboard />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/tasks" element={<TaskDashboard />} />
+          </Route>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
