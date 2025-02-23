@@ -27,18 +27,28 @@ const updateTask = async (req, res) => {
     try {
         const { id } = req.params;
         const { title, description, isComplete } = req.body;
+
         if (!id) {
             return res.status(400).json({ message: 'Task ID is required' });
         }
-        const updatedTask = await taskService.updateTask(id, req.user.userId, title, description, isComplete);
+        const updatedTask = await taskService.updateTask(
+            id,
+            req.user.userId,
+            title || null,
+            description || null,
+            isComplete
+        );
+
         if (!updatedTask) {
             return res.status(404).json({ message: 'Task not found or not authorized' });
         }
+
         res.json(updatedTask);
     } catch (error) {
         res.status(500).json({ message: 'Error updating task', error: error.message });
     }
 };
+
 
 const deleteTask = async (req, res) => {
     try {
