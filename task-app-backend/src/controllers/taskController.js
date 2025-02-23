@@ -1,4 +1,3 @@
-// backend/src/controllers/taskController.js
 const taskService = require('../services/taskService');
 
 const getTasks = async (req, res) => {
@@ -26,29 +25,32 @@ const createTask = async (req, res) => {
 const updateTask = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, description, isComplete } = req.body;
+        const { title, description, is_complete } = req.body;
 
         if (!id) {
             return res.status(400).json({ message: 'Task ID is required' });
         }
+
+        const existingTask = await taskService.getTaskById(id, req.user.userId);
+        if (!existingTask) {
+            return res.status(404).json({ message: 'Task not found or not authorized' });
+        }
+
+        console.log('Exisitng', existingTask)
+        console.log('ACtual', title, description, is_complete)
         const updatedTask = await taskService.updateTask(
             id,
             req.user.userId,
-            title || null,
-            description || null,
-            isComplete
+            title !== undefined ? title : existingTask.title,
+            description !== undefined ? description : existingTask.description,
+            is_complete != null && is_complete !== undefined ? is_complete : existingTask.is_complete
         );
-
-        if (!updatedTask) {
-            return res.status(404).json({ message: 'Task not found or not authorized' });
-        }
 
         res.json(updatedTask);
     } catch (error) {
         res.status(500).json({ message: 'Error updating task', error: error.message });
     }
 };
-
 
 const deleteTask = async (req, res) => {
     try {
