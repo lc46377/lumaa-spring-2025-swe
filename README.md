@@ -53,7 +53,7 @@ cd task-manager
 📂 Navigate to the `frontend` folder and follow these steps:
 
 ```sh
-cd frontend
+cd task-app-frontend
 npm install  # Install dependencies
 npm run start    # Start React frontend
 ```
@@ -66,7 +66,7 @@ npm run start    # Start React frontend
 📂 Navigate to the `backend` folder and follow these steps:
 
 ```sh
-cd backend
+cd task-app-backend
 npm install
 ```
 
@@ -84,6 +84,8 @@ JWT_SECRET=your_secret_key_here
 
 🔹 Run Database Migration
 Ensure PostgreSQL is running, then create tables:
+
+The following command will create tables in the db
 ```sh
 node migration.js
 ```
