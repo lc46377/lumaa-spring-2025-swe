@@ -54,8 +54,8 @@ cd task-manager
 
 ```sh
 cd task-app-frontend
-npm install  # Install dependencies
-npm run start    # Start React frontend
+npm install
+npm run start
 ```
 
 🔹 The frontend will start at: http://localhost:3000
