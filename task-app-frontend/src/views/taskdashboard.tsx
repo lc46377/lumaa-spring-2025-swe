@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import AuthContext from "../contexts/authContext";
 import { getTasks, addTask, updateTask, deleteTask } from "../services/taskService";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const TaskDashboard = () => {
     const authContext = useContext(AuthContext);
@@ -9,7 +10,7 @@ const TaskDashboard = () => {
         { id: string; title: string; description: string; is_complete: boolean }[]
     >([]);
     const [newTask, setNewTask] = useState({ title: "", description: "" });
-    const [editTask, setEditTask] = useState<{ id: string; title: string; description: string } | null>(null);
+    const [completionMessage, setCompletionMessage] = useState("");
 
     useEffect(() => {
         if (token) {
@@ -37,31 +38,20 @@ const TaskDashboard = () => {
         }
     };
 
-    const handleEditTask = async () => {
-        if (!editTask) return;
-        try {
-            await updateTask(token, editTask.id, {
-                title: editTask.title,
-                description: editTask.description,
-                is_complete: tasks.find((t) => t.id === editTask.id)?.is_complete || false,
-            });
-            setEditTask(null);
-            fetchTasks();
-        } catch (error) {
-            console.error("Error updating task", error);
-        }
-    };
-
-    const handleToggleComplete = async (taskId: string, isComplete: boolean) => {
+    const handleToggleComplete = async (taskId: string, is_complete: boolean) => {
         try {
             const task = tasks.find((task) => task.id === taskId);
             if (!task) return;
-            await updateTask(token, taskId, {
-                title: task.title,
-                description: task.description,
-                is_complete: isComplete,
-            });
+
+            await updateTask(token, taskId, { is_complete });
+
             fetchTasks();
+
+
+            if (is_complete) {
+                setCompletionMessage(`🎉 You completed: "${task.title}"!`);
+                setTimeout(() => setCompletionMessage(""), 3000);
+            }
         } catch (error) {
             console.error("Error updating task", error);
         }
@@ -79,6 +69,9 @@ const TaskDashboard = () => {
     return (
         <div className="container mt-5">
             <h2 className="mb-3">Task Dashboard</h2>
+
+            {/* Completion Message */}
+            {completionMessage && <div className="alert alert-success">{completionMessage}</div>}
 
             {/* ADD TASK */}
             <div className="input-group mb-3">
@@ -101,30 +94,6 @@ const TaskDashboard = () => {
                 </button>
             </div>
 
-            {/* EDIT TASK */}
-            {editTask && (
-                <div className="input-group mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={editTask.title}
-                        onChange={(e) => setEditTask({ ...editTask, title: e.target.value })}
-                    />
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={editTask.description}
-                        onChange={(e) => setEditTask({ ...editTask, description: e.target.value })}
-                    />
-                    <button className="btn btn-success" onClick={handleEditTask}>
-                        Save Changes
-                    </button>
-                    <button className="btn btn-secondary" onClick={() => setEditTask(null)}>
-                        Cancel
-                    </button>
-                </div>
-            )}
-
             {/* TASK LIST */}
             <ul className="list-group">
                 {tasks.map((task) => (
@@ -136,18 +105,13 @@ const TaskDashboard = () => {
                                 checked={task.is_complete}
                                 onChange={() => handleToggleComplete(task.id, !task.is_complete)}
                             />
-                            <span className={task.is_complete ? "text-decoration-line-through" : ""}>
+                            <span className={task.is_complete ? "text-decoration-line-through text-success fw-bold" : ""}>
                                 {task.title} - {task.description}
                             </span>
                         </div>
-                        <div>
-                            <button className="btn btn-warning btn-sm me-2" onClick={() => setEditTask(task)}>
-                                Edit
-                            </button>
-                            <button className="btn btn-danger btn-sm" onClick={() => handleDeleteTask(task.id)}>
-                                Delete
-                            </button>
-                        </div>
+                        <button className="btn btn-danger btn-sm" onClick={() => handleDeleteTask(task.id)}>
+                            Delete
+                        </button>
                     </li>
                 ))}
             </ul>

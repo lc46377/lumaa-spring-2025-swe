@@ -20,7 +20,7 @@ export const addTask = async (
 export const updateTask = async (
     token: string,
     taskId: string,
-    updatedTask: { title: string; description: string; is_complete: boolean }
+    updatedTask: { title?: string; description?: string; is_complete?: boolean }
 ) => {
     return axios.put(`${API_URL}/${taskId}`, updatedTask, {
         headers: { Authorization: `Bearer ${token}` },
